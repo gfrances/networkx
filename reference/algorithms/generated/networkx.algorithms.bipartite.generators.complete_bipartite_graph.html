@@ -656,17 +656,18 @@ Each node in the first is connected to each node in the second.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>n1</strong><span class="classifier">integer</span></dt><dd><p>Number of nodes for node set A.</p>
+<dt><strong>n1, n2</strong><span class="classifier">integer or iterable container of nodes</span></dt><dd><p>If integers, nodes are from <code class="xref py py-obj docutils literal notranslate"><span class="pre">range(n1)</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">range(n1,</span> <span class="pre">n1</span> <span class="pre">+</span> <span class="pre">n2)</span></code>.
+If a container, the elements are the nodes.</p>
 </dd>
-<dt><strong>n2</strong><span class="classifier">integer</span></dt><dd><p>Number of nodes for node set B.</p>
-</dd>
-<dt><strong>create_using</strong><span class="classifier">NetworkX graph instance, optional</span></dt><dd><p>Return graph of this type.</p>
+<dt><strong>create_using</strong><span class="classifier">NetworkX graph instance, (default: nx.Graph)</span></dt><dd><p>Return graph of this type.</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>Node labels are the integers 0 to <code class="xref py py-obj docutils literal notranslate"><span class="pre">n_1</span> <span class="pre">+</span> <span class="pre">n_2</span> <span class="pre">-</span> <span class="pre">1</span></code>.</p>
+<p>Nodes are the integers 0 to <code class="xref py py-obj docutils literal notranslate"><span class="pre">n1</span> <span class="pre">+</span> <span class="pre">n2</span> <span class="pre">-</span> <span class="pre">1</span></code> unless either n1 or n2 are
+containers of nodes. If only one of n1 or n2 are integers, that
+integer is replaced by <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#range" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">range</span></code></a> of that integer.</p>
 <p>The nodes are assigned the attribute ‘bipartite’ with the value 0 or 1
 to indicate which bipartite set the node belongs to.</p>
 <p>This function is not imported in the main namespace.

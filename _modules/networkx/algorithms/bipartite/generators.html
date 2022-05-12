@@ -233,16 +233,17 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    n1 : integer</span>
-<span class="sd">       Number of nodes for node set A.</span>
-<span class="sd">    n2 : integer</span>
-<span class="sd">       Number of nodes for node set B.</span>
-<span class="sd">    create_using : NetworkX graph instance, optional</span>
+<span class="sd">    n1, n2 : integer or iterable container of nodes</span>
+<span class="sd">        If integers, nodes are from `range(n1)` and `range(n1, n1 + n2)`.</span>
+<span class="sd">        If a container, the elements are the nodes.</span>
+<span class="sd">    create_using : NetworkX graph instance, (default: nx.Graph)</span>
 <span class="sd">       Return graph of this type.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    Node labels are the integers 0 to `n_1 + n_2 - 1`.</span>
+<span class="sd">    Nodes are the integers 0 to `n1 + n2 - 1` unless either n1 or n2 are</span>
+<span class="sd">    containers of nodes. If only one of n1 or n2 are integers, that</span>
+<span class="sd">    integer is replaced by `range` of that integer.</span>
 
 <span class="sd">    The nodes are assigned the attribute &#39;bipartite&#39; with the value 0 or 1</span>
 <span class="sd">    to indicate which bipartite set the node belongs to.</span>
@@ -256,12 +257,14 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 
     <span class="n">n1</span><span class="p">,</span> <span class="n">top</span> <span class="o">=</span> <span class="n">n1</span>
     <span class="n">n2</span><span class="p">,</span> <span class="n">bottom</span> <span class="o">=</span> <span class="n">n2</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">):</span>
         <span class="n">bottom</span> <span class="o">=</span> <span class="p">[</span><span class="n">n1</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bottom</span><span class="p">]</span>
     <span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">bipartite</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">bottom</span><span class="p">,</span> <span class="n">bipartite</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">top</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">bottom</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">nx</span><span class="o">.</span><span class="n">NetworkXError</span><span class="p">(</span><span class="s2">&quot;Inputs n1 and n2 must contain distinct nodes&quot;</span><span class="p">)</span>
     <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">((</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">top</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bottom</span><span class="p">)</span>
-    <span class="n">G</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;complete_bipartite_graph(</span><span class="si">{</span><span class="n">n1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">n2</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="n">G</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;complete_bipartite_graph(</span><span class="si">{</span><span class="n">n1</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">n2</span><span class="si">}</span><span class="s2">)&quot;</span>
     <span class="k">return</span> <span class="n">G</span></div>
 
 

@@ -215,6 +215,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">numbers</span>
 
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">from</span> <span class="nn">networkx.classes</span> <span class="kn">import</span> <span class="n">Graph</span>
@@ -455,8 +456,8 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    True</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n_name</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">n</span>
-    <span class="n">G</span> <span class="o">=</span> <span class="n">empty_graph</span><span class="p">(</span><span class="n">n_name</span><span class="p">,</span> <span class="n">create_using</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">empty_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">create_using</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">G</span><span class="o">.</span><span class="n">is_directed</span><span class="p">():</span>
             <span class="n">edges</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
@@ -572,10 +573,9 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    If create_using is directed, the direction is in increasing order.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n_orig</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">n</span>
     <span class="n">G</span> <span class="o">=</span> <span class="n">empty_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">create_using</span><span class="p">)</span>
-    <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">pairwise</span><span class="p">(</span><span class="n">nodes</span><span class="p">))</span>
-    <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">pairwise</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">G</span></div>
 
 
@@ -694,7 +694,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
         <span class="c1"># try create_using as constructor</span>
         <span class="n">G</span> <span class="o">=</span> <span class="n">create_using</span><span class="p">()</span>
 
-    <span class="n">n_name</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">n</span>
     <span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">G</span></div>
 
@@ -744,24 +744,28 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">m</span><span class="p">,</span> <span class="n">m_nodes</span> <span class="o">=</span> <span class="n">m</span>
-    <span class="n">n</span><span class="p">,</span> <span class="n">n_nodes</span> <span class="o">=</span> <span class="n">n</span>
     <span class="n">M</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">m_nodes</span><span class="p">)</span>
-    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">n_nodes</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="n">n_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">m_nodes</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">n_nodes</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">M</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">NetworkXError</span><span class="p">(</span><span class="s2">&quot;Invalid graph description, m should be &gt;=2&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">N</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">NetworkXError</span><span class="p">(</span><span class="s2">&quot;Invalid graph description, n should be &gt;=0&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">NetworkXError</span><span class="p">(</span><span class="s2">&quot;Invalid description: m should indicate at least 2 nodes&quot;</span><span class="p">)</span>
+
+    <span class="n">n</span><span class="p">,</span> <span class="n">n_nodes</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">):</span>
+        <span class="n">n_nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">M</span> <span class="o">+</span> <span class="n">n</span><span class="p">))</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">n_nodes</span><span class="p">)</span>
 
     <span class="c1"># the ball</span>
     <span class="n">G</span> <span class="o">=</span> <span class="n">complete_graph</span><span class="p">(</span><span class="n">m_nodes</span><span class="p">,</span> <span class="n">create_using</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">G</span><span class="o">.</span><span class="n">is_directed</span><span class="p">():</span>
         <span class="k">raise</span> <span class="n">NetworkXError</span><span class="p">(</span><span class="s2">&quot;Directed Graph not supported&quot;</span><span class="p">)</span>
+
     <span class="c1"># the stick</span>
     <span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">n_nodes</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">N</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">pairwise</span><span class="p">(</span><span class="n">n_nodes</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="o">!=</span> <span class="n">M</span> <span class="o">+</span> <span class="n">N</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">NetworkXError</span><span class="p">(</span><span class="s2">&quot;Nodes must be distinct in containers m and n&quot;</span><span class="p">)</span>
+
     <span class="c1"># connect ball to stick</span>
     <span class="k">if</span> <span class="n">M</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">N</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">m_nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">n_nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -791,7 +795,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">       Graph type to create. If graph instance, then cleared before populated.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n_name</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">n</span>
     <span class="n">G</span> <span class="o">=</span> <span class="n">empty_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">create_using</span><span class="p">)</span>
     <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">pairwise</span><span class="p">(</span><span class="n">nodes</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">G</span></div>
@@ -816,14 +820,16 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    The graph has n+1 nodes for integer n.</span>
 <span class="sd">    So star_graph(3) is the same as star_graph(range(4)).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n_name</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">n</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_name</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="n">nodes</span> <span class="o">=</span> <span class="n">nodes</span> <span class="o">+</span> <span class="p">[</span><span class="n">n_name</span><span class="p">]</span>  <span class="c1"># there should be n+1 nodes</span>
-    <span class="n">first</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">):</span>
+        <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># there should be n+1 nodes</span>
     <span class="n">G</span> <span class="o">=</span> <span class="n">empty_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">create_using</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">G</span><span class="o">.</span><span class="n">is_directed</span><span class="p">():</span>
         <span class="k">raise</span> <span class="n">NetworkXError</span><span class="p">(</span><span class="s2">&quot;Directed Graph not supported&quot;</span><span class="p">)</span>
-    <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">((</span><span class="n">first</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">hub</span><span class="p">,</span> <span class="o">*</span><span class="n">spokes</span> <span class="o">=</span> <span class="n">nodes</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">((</span><span class="n">hub</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">spokes</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">G</span></div>
 
 
@@ -882,14 +888,16 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 
 <span class="sd">    Node labels are the integers 0 to n - 1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n_name</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">n</span>
-    <span class="k">if</span> <span class="n">n_name</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">G</span> <span class="o">=</span> <span class="n">empty_graph</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">create_using</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">G</span>
-    <span class="n">G</span> <span class="o">=</span> <span class="n">star_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">create_using</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">pairwise</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
-        <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">empty_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">create_using</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">G</span><span class="o">.</span><span class="n">is_directed</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="n">NetworkXError</span><span class="p">(</span><span class="s2">&quot;Directed Graph not supported&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">hub</span><span class="p">,</span> <span class="o">*</span><span class="n">rim</span> <span class="o">=</span> <span class="n">nodes</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">((</span><span class="n">hub</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">rim</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rim</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">pairwise</span><span class="p">(</span><span class="n">rim</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">G</span></div>
 
 
