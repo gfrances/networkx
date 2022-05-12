@@ -658,8 +658,8 @@ whether an Eulerian path that starts at node <code class="xref py py-obj docutil
 <li><p>at most one vertex has out_degree - in_degree = 1,</p></li>
 <li><p>at most one vertex has in_degree - out_degree = 1,</p></li>
 <li><p>every other vertex has equal in_degree and out_degree,</p></li>
-<li><p>and all of its vertices with nonzero degree belong to a
-single connected component of the underlying undirected graph.</p></li>
+<li><p>and all of its vertices belong to a single connected
+component of the underlying undirected graph.</p></li>
 </ul>
 </dd>
 </dl>
@@ -670,14 +670,16 @@ and the conditions above hold.</p>
 <dl class="simple">
 <dt>An undirected graph has an Eulerian path iff:</dt><dd><ul class="simple">
 <li><p>exactly zero or two vertices have odd degree,</p></li>
-<li><p>and all of its vertices with nonzero degree belong to a</p></li>
-<li><p>single connected component.</p></li>
+<li><p>and all of its vertices belong to a single connected component.</p></li>
 </ul>
 </dd>
 </dl>
 <p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code> is not None, an Eulerian path starting at <code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code> exists if
 either there exists an Eulerian circuit or <code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code> has an odd degree and the
 conditions above hold.</p>
+<p>Graphs with isolated vertices (i.e. vertices with zero degree) are not considered
+to have an Eulerian path. Therefore, if the graph is not connected (or not strongly
+connected, for directed graphs), this function returns False.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">

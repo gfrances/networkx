@@ -227,6 +227,11 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    circuit* is a closed walk that includes each edge of a graph exactly</span>
 <span class="sd">    once.</span>
 
+<span class="sd">    Graphs with isolated vertices (i.e. vertices with zero degree) are not</span>
+<span class="sd">    considered to have Eulerian circuits. Therefore, if the graph is not</span>
+<span class="sd">    connected (or not strongly connected, for directed graphs), this function</span>
+<span class="sd">    returns False.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    G : NetworkX graph</span>
@@ -241,10 +246,18 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    &gt;&gt;&gt; nx.is_eulerian(nx.petersen_graph())</span>
 <span class="sd">    False</span>
 
-<span class="sd">    Notes</span>
-<span class="sd">    -----</span>
-<span class="sd">    If the graph is not connected (or not strongly connected, for</span>
-<span class="sd">    directed graphs), this function returns False.</span>
+<span class="sd">    If you prefer to allow graphs with isolated vertices to have Eulerian circuits,</span>
+<span class="sd">    you can first remove such vertices and then call `is_eulerian` as below example shows.</span>
+
+<span class="sd">    &gt;&gt;&gt; G = nx.Graph([(0, 1), (1, 2), (0, 2)])</span>
+<span class="sd">    &gt;&gt;&gt; G.add_node(3)</span>
+<span class="sd">    &gt;&gt;&gt; nx.is_eulerian(G)</span>
+<span class="sd">    False</span>
+
+<span class="sd">    &gt;&gt;&gt; G.remove_nodes_from(list(nx.isolates(G)))</span>
+<span class="sd">    &gt;&gt;&gt; nx.is_eulerian(G)</span>
+<span class="sd">    True</span>
+
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">G</span><span class="o">.</span><span class="n">is_directed</span><span class="p">():</span>
@@ -262,6 +275,11 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
     <span class="sd">&quot;&quot;&quot;Return True iff `G` is semi-Eulerian.</span>
 
 <span class="sd">    G is semi-Eulerian if it has an Eulerian path but no Eulerian circuit.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    has_eulerian_path</span>
+<span class="sd">    is_eulerian</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">has_eulerian_path</span><span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_eulerian</span><span class="p">(</span><span class="n">G</span><span class="p">)</span></div>
 
@@ -428,8 +446,8 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">        - at most one vertex has out_degree - in_degree = 1,</span>
 <span class="sd">        - at most one vertex has in_degree - out_degree = 1,</span>
 <span class="sd">        - every other vertex has equal in_degree and out_degree,</span>
-<span class="sd">        - and all of its vertices with nonzero degree belong to a</span>
-<span class="sd">          single connected component of the underlying undirected graph.</span>
+<span class="sd">        - and all of its vertices belong to a single connected</span>
+<span class="sd">          component of the underlying undirected graph.</span>
 
 <span class="sd">    If `source` is not None, an Eulerian path starting at `source` exists if no</span>
 <span class="sd">    other node has out_degree - in_degree = 1. This is equivalent to either</span>
@@ -438,12 +456,15 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 
 <span class="sd">    An undirected graph has an Eulerian path iff:</span>
 <span class="sd">        - exactly zero or two vertices have odd degree,</span>
-<span class="sd">        - and all of its vertices with nonzero degree belong to a</span>
-<span class="sd">        - single connected component.</span>
+<span class="sd">        - and all of its vertices belong to a single connected component.</span>
 
 <span class="sd">    If `source` is not None, an Eulerian path starting at `source` exists if</span>
 <span class="sd">    either there exists an Eulerian circuit or `source` has an odd degree and the</span>
 <span class="sd">    conditions above hold.</span>
+
+<span class="sd">    Graphs with isolated vertices (i.e. vertices with zero degree) are not considered</span>
+<span class="sd">    to have an Eulerian path. Therefore, if the graph is not connected (or not strongly</span>
+<span class="sd">    connected, for directed graphs), this function returns False.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -457,6 +478,20 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    -------</span>
 <span class="sd">    Bool : True if G has an Eulerian path.</span>
 
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    If you prefer to allow graphs with isolated vertices to have Eulerian path,</span>
+<span class="sd">    you can first remove such vertices and then call `has_eulerian_path` as below example shows.</span>
+
+<span class="sd">    &gt;&gt;&gt; G = nx.Graph([(0, 1), (1, 2), (0, 2)])</span>
+<span class="sd">    &gt;&gt;&gt; G.add_node(3)</span>
+<span class="sd">    &gt;&gt;&gt; nx.has_eulerian_path(G)</span>
+<span class="sd">    False</span>
+
+<span class="sd">    &gt;&gt;&gt; G.remove_nodes_from(list(nx.isolates(G)))</span>
+<span class="sd">    &gt;&gt;&gt; nx.has_eulerian_path(G)</span>
+<span class="sd">    True</span>
+
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
 <span class="sd">    is_eulerian</span>
@@ -466,11 +501,6 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">if</span> <span class="n">G</span><span class="o">.</span><span class="n">is_directed</span><span class="p">():</span>
-        <span class="c1"># Remove isolated nodes (if any) without altering the input graph</span>
-        <span class="n">nodes_remove</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">G</span> <span class="k">if</span> <span class="n">G</span><span class="o">.</span><span class="n">in_degree</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">G</span><span class="o">.</span><span class="n">out_degree</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">nodes_remove</span><span class="p">:</span>
-            <span class="n">G</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">G</span><span class="o">.</span><span class="n">remove_nodes_from</span><span class="p">(</span><span class="n">nodes_remove</span><span class="p">)</span>
         <span class="n">ins</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">in_degree</span>
         <span class="n">outs</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">out_degree</span>
         <span class="c1"># Since we know it is not eulerian, outs - ins must be 1 for source</span>

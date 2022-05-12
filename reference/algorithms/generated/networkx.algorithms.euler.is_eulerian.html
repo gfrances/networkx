@@ -653,6 +653,10 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <p>A graph is <em>Eulerian</em> if it has an Eulerian circuit. An <em>Eulerian
 circuit</em> is a closed walk that includes each edge of a graph exactly
 once.</p>
+<p>Graphs with isolated vertices (i.e. vertices with zero degree) are not
+considered to have Eulerian circuits. Therefore, if the graph is not
+connected (or not strongly connected, for directed graphs), this function
+returns False.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -661,9 +665,6 @@ once.</p>
 </dl>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
-<p>If the graph is not connected (or not strongly connected, for
-directed graphs), this function returns False.</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nx</span><span class="o">.</span><span class="n">is_eulerian</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">1</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">3</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]}))</span>
 <span class="go">True</span>
@@ -671,6 +672,19 @@ directed graphs), this function returns False.</p>
 <span class="go">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">nx</span><span class="o">.</span><span class="n">is_eulerian</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">petersen_graph</span><span class="p">())</span>
 <span class="go">False</span>
+</pre></div>
+</div>
+<p>If you prefer to allow graphs with isolated vertices to have Eulerian circuits,
+you can first remove such vertices and then call <a class="reference internal" href="#networkx.algorithms.euler.is_eulerian" title="networkx.algorithms.euler.is_eulerian"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_eulerian</span></code></a> as below example shows.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nx</span><span class="o">.</span><span class="n">is_eulerian</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">remove_nodes_from</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">isolates</span><span class="p">(</span><span class="n">G</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nx</span><span class="o">.</span><span class="n">is_eulerian</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="go">True</span>
 </pre></div>
 </div>
 </dd></dl>
