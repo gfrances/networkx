@@ -204,6 +204,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
   <h1>Source code for networkx.classes.multidigraph</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Base class for MultiDiGraph.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cached_property</span>
 
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">from</span> <span class="nn">networkx.classes.digraph</span> <span class="kn">import</span> <span class="n">DiGraph</span>
@@ -549,7 +550,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">DiGraph</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">incoming_graph_data</span><span class="p">,</span> <span class="o">**</span><span class="n">attr</span><span class="p">)</span></div>
 
-    <span class="nd">@property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">adj</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Graph adjacency object holding the neighbors of each node.</span>
 
@@ -568,7 +569,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">MultiAdjacencyView</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_succ</span><span class="p">)</span>
 
-    <span class="nd">@property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">succ</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Graph adjacency object holding the successors of each node.</span>
 
@@ -587,7 +588,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">MultiAdjacencyView</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_succ</span><span class="p">)</span>
 
-    <span class="nd">@property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">pred</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Graph adjacency object holding the predecessors of each node.</span>
 
@@ -762,7 +763,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_succ</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">]</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pred</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">u</span><span class="p">]</span></div>
 
-    <span class="nd">@property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;An OutMultiEdgeView of the Graph as G.edges or G.edges().</span>
 
@@ -844,9 +845,13 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
         <span class="k">return</span> <span class="n">OutMultiEdgeView</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="c1"># alias out_edges to edges</span>
-    <span class="n">out_edges</span> <span class="o">=</span> <span class="n">edges</span>
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">out_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">OutMultiEdgeView</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="nd">@property</span>
+    <span class="n">out_edges</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="vm">__doc__</span>
+
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">in_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;An InMultiEdgeView of the Graph as G.in_edges or G.in_edges().</span>
 
@@ -880,7 +885,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">InMultiEdgeView</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="nd">@property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">degree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;A DegreeView for the Graph as G.degree or G.degree().</span>
 
@@ -928,7 +933,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">DiMultiDegreeView</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="nd">@property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">in_degree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;A DegreeView for (node, in_degree) or in_degree for single node.</span>
 
@@ -979,7 +984,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">InMultiDegreeView</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="nd">@property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">out_degree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns an iterator for (node, out-degree) or out-degree for single node.</span>
 
