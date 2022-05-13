@@ -226,6 +226,18 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    H : NetworkX graph</span>
 <span class="sd">        The undirected moralized graph of G</span>
 
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    NetworkXNotImplemented</span>
+<span class="sd">        If `G` is undirected.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; G = nx.DiGraph([(1, 2), (2, 3), (2, 5), (3, 4), (4, 3)])</span>
+<span class="sd">    &gt;&gt;&gt; G_moral = nx.moral_graph(G)</span>
+<span class="sd">    &gt;&gt;&gt; G_moral.edges()</span>
+<span class="sd">    EdgeView([(1, 2), (2, 3), (2, 5), (2, 4), (3, 4)])</span>
+
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    A moral graph is an undirected graph H = (V, E) generated from a</span>

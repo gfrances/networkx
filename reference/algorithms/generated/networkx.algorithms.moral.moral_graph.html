@@ -664,6 +664,12 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 </dd>
 </dl>
 </dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>NetworkXNotImplemented</dt><dd><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">G</span></code> is undirected.</p>
+</dd>
+</dl>
+</dd>
 </dl>
 <p class="rubric">Notes</p>
 <p>A moral graph is an undirected graph H = (V, E) generated from a
@@ -679,6 +685,13 @@ In Proceedings of the Eleventh conference on Uncertainty
 in artificial intelligence (UAI’95)</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G_moral</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">moral_graph</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G_moral</span><span class="o">.</span><span class="n">edges</span><span class="p">()</span>
+<span class="go">EdgeView([(1, 2), (2, 3), (2, 5), (2, 4), (3, 4)])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>
