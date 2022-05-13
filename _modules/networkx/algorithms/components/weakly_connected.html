@@ -287,6 +287,12 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    NetworkXNotImplemented</span>
 <span class="sd">        If G is undirected.</span>
 
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; G = nx.DiGraph([(0, 1), (2, 1), (3, 4)])</span>
+<span class="sd">    &gt;&gt;&gt; nx.number_weakly_connected_components(G)</span>
+<span class="sd">    2</span>
+
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
 <span class="sd">    weakly_connected_components</span>
@@ -326,6 +332,16 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    ------</span>
 <span class="sd">    NetworkXNotImplemented</span>
 <span class="sd">        If G is undirected.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; G = nx.DiGraph([(0, 1), (2, 1)])</span>
+<span class="sd">    &gt;&gt;&gt; G.add_node(3)</span>
+<span class="sd">    &gt;&gt;&gt; nx.is_weakly_connected(G)  # node 3 is not connected to the graph</span>
+<span class="sd">    False</span>
+<span class="sd">    &gt;&gt;&gt; G.add_edge(2, 3)</span>
+<span class="sd">    &gt;&gt;&gt; nx.is_weakly_connected(G)</span>
+<span class="sd">    True</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
