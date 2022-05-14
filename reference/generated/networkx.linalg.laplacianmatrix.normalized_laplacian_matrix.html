@@ -410,7 +410,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <div class="math notranslate nohighlight">
 \[N = D^{-1/2} L D^{-1/2}\]</div>
 <p>where <code class="xref py py-obj docutils literal notranslate"><span class="pre">L</span></code> is the graph Laplacian and <code class="xref py py-obj docutils literal notranslate"><span class="pre">D</span></code> is the diagonal matrix of
-node degrees.</p>
+node degrees <a class="reference internal" href="#r68848064d052-1" id="id1">[1]</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -439,17 +439,17 @@ If None, then each edge has weight 1.</p>
 </dl>
 </div>
 <p class="rubric">Notes</p>
-<p>For MultiGraph/MultiDiGraph, the edges weights are summed.
-See to_numpy_array for other options.</p>
-<p>If the Graph contains selfloops, D is defined as diag(sum(A,1)), where A is
-the adjacency matrix <a class="reference internal" href="#r68848064d052-2" id="id1">[2]</a>.</p>
+<p>For MultiGraph, the edges weights are summed.
+See <code class="xref py py-func docutils literal notranslate"><span class="pre">to_numpy_array()</span></code> for other options.</p>
+<p>If the Graph contains selfloops, D is defined as <code class="docutils literal notranslate"><span class="pre">diag(sum(A,</span> <span class="pre">1))</span></code>, where A is
+the adjacency matrix <a class="reference internal" href="#r68848064d052-2" id="id2">[2]</a>.</p>
 <p class="rubric">References</p>
 <dl class="citation">
-<dt class="label" id="r68848064d052-1"><span class="brackets">1</span></dt>
+<dt class="label" id="r68848064d052-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Fan Chung-Graham, Spectral Graph Theory,
 CBMS Regional Conference Series in Mathematics, Number 92, 1997.</p>
 </dd>
-<dt class="label" id="r68848064d052-2"><span class="brackets"><a class="fn-backref" href="#id1">2</a></span></dt>
+<dt class="label" id="r68848064d052-2"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
 <dd><p>Steve Butler, Interlacing For Weighted Graphs Using The Normalized
 Laplacian, Electronic Journal of Linear Algebra, Volume 16, pp. 90-98,
 March 2007.</p>

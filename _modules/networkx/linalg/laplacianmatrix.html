@@ -242,7 +242,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    For MultiGraph/MultiDiGraph, the edges weights are summed.</span>
+<span class="sd">    For MultiGraph, the edges weights are summed.</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
@@ -281,7 +281,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">        N = D^{-1/2} L D^{-1/2}</span>
 
 <span class="sd">    where `L` is the graph Laplacian and `D` is the diagonal matrix of</span>
-<span class="sd">    node degrees.</span>
+<span class="sd">    node degrees [1]_.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -303,10 +303,10 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    For MultiGraph/MultiDiGraph, the edges weights are summed.</span>
-<span class="sd">    See to_numpy_array for other options.</span>
+<span class="sd">    For MultiGraph, the edges weights are summed.</span>
+<span class="sd">    See :func:`to_numpy_array` for other options.</span>
 
-<span class="sd">    If the Graph contains selfloops, D is defined as diag(sum(A,1)), where A is</span>
+<span class="sd">    If the Graph contains selfloops, D is defined as ``diag(sum(A, 1))``, where A is</span>
 <span class="sd">    the adjacency matrix [2]_.</span>
 
 <span class="sd">    See Also</span>
@@ -351,8 +351,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 
 
 <span class="c1">###############################################################################</span>
-<span class="c1"># Code based on</span>
-<span class="c1"># https://bitbucket.org/bedwards/networkx-community/src/370bd69fc02f/networkx/algorithms/community/</span>
+<span class="c1"># Code based on work from https://github.com/bjedwards</span>
 
 
 <div class="viewcode-block" id="directed_laplacian_matrix"><a class="viewcode-back" href="../../../reference/generated/networkx.linalg.laplacianmatrix.directed_laplacian_matrix.html#networkx.linalg.laplacianmatrix.directed_laplacian_matrix">[docs]</a><span class="nd">@not_implemented_for</span><span class="p">(</span><span class="s2">&quot;undirected&quot;</span><span class="p">)</span>
@@ -370,7 +369,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 
 <span class="sd">    where `I` is the identity matrix, `P` is the transition matrix of the</span>
 <span class="sd">    graph, and `\Phi` a matrix with the Perron vector of `P` in the diagonal and</span>
-<span class="sd">    zeros elsewhere.</span>
+<span class="sd">    zeros elsewhere [1]_.</span>
 
 <span class="sd">    Depending on the value of walk_type, `P` can be the transition matrix</span>
 <span class="sd">    induced by a random walk, a lazy random walk, or a random walk with</span>
@@ -466,7 +465,7 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">        L = \Phi - (\Phi P + P^T \Phi) / 2</span>
 
 <span class="sd">    where `P` is the transition matrix of the graph and `\Phi` a matrix</span>
-<span class="sd">    with the Perron vector of `P` in the diagonal and zeros elsewhere.</span>
+<span class="sd">    with the Perron vector of `P` in the diagonal and zeros elsewhere [1]_.</span>
 
 <span class="sd">    Depending on the value of walk_type, `P` can be the transition matrix</span>
 <span class="sd">    induced by a random walk, a lazy random walk, or a random walk with</span>
