@@ -237,6 +237,12 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    matching : set</span>
 <span class="sd">        A maximal matching of the graph.</span>
 
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; G = nx.Graph([(1, 2), (1, 3), (2, 3), (2, 4), (3, 5), (4, 5)])</span>
+<span class="sd">    &gt;&gt;&gt; sorted(nx.maximal_matching(G))</span>
+<span class="sd">    [(1, 2), (3, 5)]</span>
+
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    The algorithm greedily selects a maximal matching M of the graph G</span>
@@ -309,6 +315,15 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">        If the proposed matching has an edge to a node not in G.</span>
 <span class="sd">        Or if the matching is not a collection of 2-tuple edges.</span>
 
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; G = nx.Graph([(1, 2), (1, 3), (2, 3), (2, 4), (3, 5), (4, 5)])</span>
+<span class="sd">    &gt;&gt;&gt; nx.is_maximal_matching(G, {1: 3, 2: 4})  # using dict to represent matching</span>
+<span class="sd">    True</span>
+
+<span class="sd">    &gt;&gt;&gt; nx.is_matching(G, {(1, 3), (2, 4)})  # using set to represent matching</span>
+<span class="sd">    True</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">matching</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="n">matching</span> <span class="o">=</span> <span class="n">matching_dict_to_set</span><span class="p">(</span><span class="n">matching</span><span class="p">)</span>
@@ -352,6 +367,12 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    bool</span>
 <span class="sd">        Whether the given set or dictionary represents a valid maximal</span>
 <span class="sd">        matching in the graph.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; G = nx.Graph([(1, 2), (1, 3), (2, 3), (3, 4), (3, 5)])</span>
+<span class="sd">    &gt;&gt;&gt; nx.is_maximal_matching(G, {(1, 2), (3, 4)})</span>
+<span class="sd">    True</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">matching</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
@@ -407,6 +428,13 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    bool</span>
 <span class="sd">        Whether the given set or dictionary represents a valid perfect</span>
 <span class="sd">        matching in the graph.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; G = nx.Graph([(1, 2), (1, 3), (2, 3), (2, 4), (3, 5), (4, 5), (4, 6)])</span>
+<span class="sd">    &gt;&gt;&gt; my_match = {1: 2, 3: 5, 4: 6}</span>
+<span class="sd">    &gt;&gt;&gt; nx.is_perfect_matching(G, my_match)</span>
+<span class="sd">    True</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">matching</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
@@ -532,6 +560,14 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    -------</span>
 <span class="sd">    matching : set</span>
 <span class="sd">        A maximal matching of the graph.</span>
+
+<span class="sd">     Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; G = nx.Graph()</span>
+<span class="sd">    &gt;&gt;&gt; edges = [(1, 2, 6), (1, 3, 2), (2, 3, 1), (2, 4, 7), (3, 5, 9), (4, 5, 3)]</span>
+<span class="sd">    &gt;&gt;&gt; G.add_weighted_edges_from(edges)</span>
+<span class="sd">    &gt;&gt;&gt; sorted(nx.max_weight_matching(G))</span>
+<span class="sd">    [(2, 4), (5, 3)]</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
