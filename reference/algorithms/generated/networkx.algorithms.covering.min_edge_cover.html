@@ -697,6 +697,12 @@ is bounded by the worst-case running time of the function
 function in <a class="reference internal" href="../bipartite.html#module-networkx.algorithms.bipartite.covering" title="networkx.algorithms.bipartite.covering"><code class="xref py py-mod docutils literal notranslate"><span class="pre">networkx.algorithms.bipartite.covering</span></code></a> which is
 simply this function with a default matching algorithm of
 <code class="xref py py-func docutils literal notranslate"><span class="pre">hopcraft_karp_matching()</span></code></p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">min_edge_cover</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>
+<span class="go">[(2, 1), (3, 0)]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

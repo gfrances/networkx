@@ -253,6 +253,12 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">        the returned set contains both the 2-tuples `(u, v)` and `(v, u)`</span>
 <span class="sd">        for each edge of a minimum edge cover.</span>
 
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; G = nx.Graph([(0, 1), (0, 2), (0, 3), (1, 2), (1, 3)])</span>
+<span class="sd">    &gt;&gt;&gt; sorted(nx.min_edge_cover(G))</span>
+<span class="sd">    [(2, 1), (3, 0)]</span>
+
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    An edge cover of a graph is a set of edges such that every node of</span>
@@ -322,6 +328,13 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    -------</span>
 <span class="sd">    bool</span>
 <span class="sd">        Whether the set of edges is a valid edge cover of the graph.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; G = nx.Graph([(0, 1), (0, 2), (0, 3), (1, 2), (1, 3)])</span>
+<span class="sd">    &gt;&gt;&gt; cover = {(2, 1), (3, 0)}</span>
+<span class="sd">    &gt;&gt;&gt; nx.is_edge_cover(G, cover)</span>
+<span class="sd">    True</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
