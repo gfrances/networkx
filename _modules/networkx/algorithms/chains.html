@@ -248,6 +248,12 @@ href="https://networkx.org/documentation/stable/">Switch to stable version</a>
 <span class="sd">    NodeNotFound</span>
 <span class="sd">       If `root` is not in the graph `G`.</span>
 
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; G = nx.Graph([(0, 1), (1, 4), (3, 4), (3, 5), (4, 5)])</span>
+<span class="sd">    &gt;&gt;&gt; list(nx.chain_decomposition(G))</span>
+<span class="sd">    [[(4, 5), (5, 3), (3, 4)]]</span>
+
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    The worst-case running time of this implementation is linear in the</span>
